@@ -29,3 +29,14 @@ double FiniteDifferences::central_difference(double x, double step){
     
 }
 
+double FiniteDifferences::five_point(double x, double step){
+    this->method = "five point";
+    double first, second, third, fourth;
+    first = (*f)(x+(2*step));
+    second = (*f)(x+step);
+    third = (*f)(x-step);
+    fourth = (*f)(x-(2*step));
+    
+    return (-first + 8*second - 8*third + fourth)/(12*step);
+}
+
