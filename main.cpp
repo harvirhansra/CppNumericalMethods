@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
     FiniteDifferences fd(func);
     double x = atof(argv[1]);
     double step = atof(argv[2]);
-    double df_approx = fd.five_point(x, step);
+    double df_approx = fd.richardson_extrapolation(x, step);
     double df_actual = df(x);
     cout << "Using " << fd.method << endl;
     print_stats(x, step, df_approx, df_actual);

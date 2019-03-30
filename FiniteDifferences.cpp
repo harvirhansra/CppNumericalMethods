@@ -40,3 +40,14 @@ double FiniteDifferences::five_point(double x, double step){
     return (-first + 8*second - 8*third + fourth)/(12*step);
 }
 
+double FiniteDifferences::richardson_extrapolation(double x, double step){
+    this->method = "richardson extrapolation";
+    double first, second, third;
+    first = ((*f)(x+(step/2)));
+    second = ((*f)(x+step));
+    third = ((*f)(x));
+    
+    return (4*first - second - 3*third) / step;
+    
+}
+
