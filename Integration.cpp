@@ -14,21 +14,19 @@ Integration::Integration(double (*func)(double)) {
 double Integration::trapezoidal(double a, double b, double n){
   double first;
   double h = (b-a)/n;
-  double sum = 0;
-  vector<double> second;
+  double sum;
+  vector<double> points;
   this->method = "trapezoidal method";
 
-  cout << "Integrating between " << a << " and " << b << endl;
-    
   first = (b-a)/(2*n);
   
-  second.push_back((*f)(a));
+  points.push_back((*f)(a));
   for(double x = a; x <= b; x+=h){
-    second.push_back(2*((*f)(x)));
+    points.push_back(2*((*f)(x)));
   }
-  second.push_back((*f)(b));
+  points.push_back((*f)(b));
 
-  for(auto& i : second){
+  for(auto& i : points){
     sum += i;
   }
        
@@ -39,7 +37,6 @@ double Integration::middlepoint(double a, double b, double n){
   double h = (b-a)/n;
   vector<double> points;
   double sum;
-
   this->method = "middlepoint rule";
   
   for(double x = a; x < b; x+=h){
@@ -53,5 +50,30 @@ double Integration::middlepoint(double a, double b, double n){
 
   return sum;
 }
-  
 
+
+double Integration::simpsons(double a, double b, double n){
+  double h = (b-a)/n;
+  vector<double> points;
+  double sum, first;
+  this->method = "simpsons rule";
+
+  first = h/3.0;
+  points.push_back((*f)(a));
+  for(double x = a+h; x < b; x+=(2*h)){
+    double y = (*f)(x);
+    points.push_back(4*y);
+  }
+  for(double x = a+(2*h); x < b; x+=(2*h)){
+    double y = (*f)(x);
+    points.push_back(2*y);
+  }
+  points.push_back((*f)(b));
+
+  for(auto& i : points){
+    sum += i;
+  }
+
+  return first*sum;
+  
+}

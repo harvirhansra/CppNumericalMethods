@@ -41,7 +41,7 @@ int main(int argc, char* argv[]) {
 //    print_stats(x, step, df_approx, df_actual);
     Integration i(func);
     cout << "Using " << i.method << endl;
-    double ff_approx = i.middlepoint(a, b, n);
+    double ff_approx = i.simpsons(a, b, n);
     double ff_actual = abs(ff(b) - ff(a)) ;
     print_stats(a, n, ff_approx, ff_actual);
     return 0;

@@ -8,7 +8,7 @@ public:
   Integration(double (*func)(double));
   double trapezoidal(double a, double b, double n);
   double middlepoint(double a, double b, double n);
-  double simpsons(double x, double h);
+  double simpsons(double a, double b, double n);
   double gaussian(double x, double A);
   double monte_carlo(double x, double h);
   std::string method;
