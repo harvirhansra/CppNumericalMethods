@@ -12,17 +12,18 @@ Integration::Integration(double (*func)(double)) {
 }
 
 double Integration::trapezoidal(double a, double b, double n){
-  double first, h;
+  double first;
+  double h = (b-a)/n;
   double sum = 0;
   vector<double> second;
   this->method = "trapezoidal method";
+
   cout << "Integrating between " << a << " and " << b << endl;
     
   first = (b-a)/(2*n);
-  h = (b-a)/n;
   
   second.push_back((*f)(a));
-  for(double x = a; x < b; x+=h){
+  for(double x = a; x <= b; x+=h){
     second.push_back(2*((*f)(x)));
   }
   second.push_back((*f)(b));
@@ -33,4 +34,24 @@ double Integration::trapezoidal(double a, double b, double n){
        
   return first*sum;
 }
+
+double Integration::middlepoint(double a, double b, double n){
+  double h = (b-a)/n;
+  vector<double> points;
+  double sum;
+
+  this->method = "middlepoint rule";
+  
+  for(double x = a; x < b; x+=h){
+    double y = (*f)(x+(h/2));
+    points.push_back(h*y);
+  }
+  
+  for(auto& i : points){
+    sum += i;
+  }
+
+  return sum;
+}
+  
 
