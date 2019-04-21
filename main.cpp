@@ -2,12 +2,15 @@
 #include <cmath>
 #include "Differentiation.h"
 #include "Integration.h"
+#include "SingleNonLinear.h"
 
 using namespace std;
 
 double f(double x){
-//    return pow(x, x);
-    return pow(x, 2);
+
+  // return pow(x, x);
+  // return pow(x, 2);
+  return (pow(x,3)/3.0) - (2*pow(x,2)) + x - 4.0;
 }
 
 double df(double x){
@@ -29,21 +32,28 @@ void print_stats(double x, double step, double approx, double actual){
 
 int main(int argc, char* argv[]) {
     double (*func)(double) = f;
-    Differentiation d(func);
-    double a = 1;
-    double b = 3;
-    double n = 1000000;
-    //double x = atof(argv[1]);
-    //double step = atof(argv[2]);
-//    double df_approx = d.richardson_extrapolation(x, step);
-//    double df_actual = df(x);
-//    cout << "Using " << d.method << endl;
-//    print_stats(x, step, df_approx, df_actual);
-    Integration i(func);
-    cout << "Using " << i.method << endl;
-    double ff_approx = i.simpsons(a, b, n);
-    double ff_actual = abs(ff(b) - ff(a)) ;
-    print_stats(a, n, ff_approx, ff_actual);
+    // Differentiation
+    // Differentiation d(func);
+    // double a = 1;
+    // double b = 3;
+    // double n = 1000000;
+    // double df_approx = d.richardson_extrapolation(x, step);
+    // double df_actual = df(x);
+    // cout << "Using " << d.method << endl;
+    // print_stats(x, step, df_approx, df_actual);
+    // Integration
+    // Integration i(func);
+    // cout << "Using " << i.method << endl;
+    // double ff_approx = i.simpsons(a, b, n);
+    // double ff_actual = abs(ff(b) - ff(a)) ;
+    // print_stats(a, n, ff_approx, ff_actual);
+
+    SingleNonLinear snl(func);
+    double result = snl.newton(8.0);
+    cout << "Using " << snl.method << endl;
+    cout << result << endl;
+
+
     return 0;
 }
 
