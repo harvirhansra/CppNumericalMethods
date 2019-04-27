@@ -32,6 +32,7 @@ double SingleNonLinear::secant(double x0, double x1){
     int n = 1;
     double first, second, third;
     vector<double> xn;
+
     xn.push_back(x0);
     xn.push_back(x1);
     while(abs((*f)(xn[n])) > 1/pow(10, 10)){
@@ -41,8 +42,28 @@ double SingleNonLinear::secant(double x0, double x1){
 	third = ((*f)(xn[n-2])) - ((*f)(xn[n-1])); 
 	xn.push_back((first - second)/third);
     }
-
-
+    
     return xn[n];
 }
 
+double SingleNonLinear::bisection(double x0, double x1){
+  this->method = "Bisection";
+  double a, b, c, d;
+  a = x0;
+  b = x1;
+  c = (x0+x1)/2;
+
+  while(abs((*f)(c)) > 1/pow(10, 10)){
+    c = (a+b)/2;
+    d = (*f)(a) * (*f)(c);
+    if (d < 0){
+      b = c;
+    }
+    else{
+      a = c;
+    }
+  }
+  return c;
+}
+    
+    

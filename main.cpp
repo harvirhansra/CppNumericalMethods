@@ -49,8 +49,9 @@ int main(int argc, char* argv[]) {
     // print_stats(a, n, ff_approx, ff_actual);
 
     SingleNonLinear snl(func);
-    //double result = snl.newton(8.0);
-    double result = snl.secant(7.5, 8);
+    // double result = snl.newton(6);
+    // double result = snl.secant(5, 6);
+    double result = snl.bisection(5, 6);
     cout << "Using " << snl.method << endl;
     cout << result << endl;
 
