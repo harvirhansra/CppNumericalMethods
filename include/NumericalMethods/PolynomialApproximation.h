@@ -7,10 +7,10 @@
 class PolynomialApproximation {
 public:
   PolynomialApproximation(double (*func)(double));
-  double lagrange(double x, std::vector<double> xs, std::vector<double> ys);
+  double lagrange(double &x, std::vector<double> xs, std::vector<double> ys);
   std::string method;
 private:
-  double p(double x, int i, std::vector<double> xs);
+  double pi(double &x, int &i, std::vector<double> xs);
   double (*f)(double);
 
 };

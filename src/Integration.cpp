@@ -1,5 +1,5 @@
-#include "Integration.h"
-#include "Differentiation.h"
+#include "NumericalMethods/Integration.h"
+#include "NumericalMethods/Differentiation.h"
 
 #include <iostream>
 #include <cmath>
@@ -11,7 +11,7 @@ Integration::Integration(double (*func)(double)) {
     f = func;
 }
 
-double Integration::trapezoidal(double a, double b, double n){
+double Integration::trapezoidal(double &a, double &b, double &n){
   double first;
   double h = (b-a)/n;
   double sum;
@@ -33,7 +33,7 @@ double Integration::trapezoidal(double a, double b, double n){
   return first*sum;
 }
 
-double Integration::middlepoint(double a, double b, double n){
+double Integration::middlepoint(double &a, double &b, double &n){
   double h = (b-a)/n;
   vector<double> points;
   double sum;
@@ -52,7 +52,7 @@ double Integration::middlepoint(double a, double b, double n){
 }
 
 
-double Integration::simpsons(double a, double b, double n){
+double Integration::simpsons(double &a, double &b, double &n){
   double h = (b-a)/n;
   vector<double> points;
   double sum, first;
@@ -74,6 +74,5 @@ double Integration::simpsons(double a, double b, double n){
     sum += i;
   }
 
-  return first*sum;
-  
+  return first*sum;  
 }
