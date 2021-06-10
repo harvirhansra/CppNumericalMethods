@@ -1,8 +1,8 @@
-#include "NumericalMethods/SingleNonLinear.h"
-#include "NumericalMethods/Differentiation.h"
-#include <vector>
 #include <cmath>
+#include <vector>
 #include <iostream>
+#include "NumericalMethods/Differentiation.h"
+#include "NumericalMethods/SingleNonLinear.h"
 
 using namespace std;
 
@@ -12,11 +12,11 @@ SingleNonLinear::SingleNonLinear(double (*func)(double)){
 }
 
 
-double SingleNonLinear::newton(double &x0){
+double SingleNonLinear::newton(double x0){
+    cout << "Using Newton's Method" << endl;
+
     int n = 0;
     double step = 0.001;
-
-    this->method = "Newton";
     vector<double> xn;
     Differentiation d(f);
 
@@ -29,8 +29,9 @@ double SingleNonLinear::newton(double &x0){
     return xn[n];
 }
 
-double SingleNonLinear::secant(double &x0, double &x1){
-    this->method = "Secant";
+double SingleNonLinear::secant(double x0, double x1){
+    cout << "Using Secant Method" << endl;
+    
     int n = 1;
     double first, second, third;
     vector<double> xn;
@@ -39,31 +40,32 @@ double SingleNonLinear::secant(double &x0, double &x1){
     xn.push_back(x1);
     while(abs((*f)(xn[n])) > 1/pow(10, 10)){
         n += 1;
-	first = xn[n-1] * (*f)(xn[n-2]);
-	second = xn[n-2] * (*f)(xn[n-1]);
-	third = ((*f)(xn[n-2])) - ((*f)(xn[n-1])); 
-	xn.push_back((first - second)/third);
-    }
-    
+    first = xn[n-1] * (*f)(xn[n-2]);
+    second = xn[n-2] * (*f)(xn[n-1]);
+    third = ((*f)(xn[n-2])) - ((*f)(xn[n-1])); 
+    xn.push_back((first - second)/third);
+      }
+      
     return xn[n];
 }
 
-double SingleNonLinear::bisection(double &x0, double &x1){
-  this->method = "Bisection";
-  double a, b, c, d;
-  a = x0;
-  b = x1;
-  c = (x0+x1)/2;
+double SingleNonLinear::bisection(double x0, double x1){
+    cout << "Using Bisection Method" << endl;
+    
+    double a, b, c, d;
+    a = x0;
+    b = x1;
+    c = (x0+x1)/2;
 
-  while(abs((*f)(c)) > 1/pow(10, 10)){
-    c = (a+b)/2;
-    d = (*f)(a) * (*f)(c);
-    if (d < 0){
-      b = c;
+    while(abs((*f)(c)) > 1/pow(10, 10)){
+      c = (a+b)/2;
+      d = (*f)(a) * (*f)(c);
+      if (d < 0){
+        b = c;
+      }
+      else{
+        a = c;
+      }
     }
-    else{
-      a = c;
-    }
-  }
-  return c;
+    return c;
 }
